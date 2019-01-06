@@ -1,6 +1,13 @@
 require "active_search/version"
 
 module ActiveSearch
-  class Error < StandardError; end
-  # Your code goes here...
+  extend ActiveSupport::Autoload
+
+  autoload :Base
+  autoload :Client
+  autoload :Configurations
+  autoload :Persistence
+  autoload :Quering
+  autoload :Scheme
+  autoload :Validates
 end
