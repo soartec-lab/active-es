@@ -1,31 +1,14 @@
 module ActiveSearch
   module Scheme
     def create_scheme
-      object = new
-      client = object.client
-
-      body = {
-        mappings: {
-          "#{type}" => {
-            properties: object.properties
-          }
-        }
-      }
-
-      client.indices.create index: index, body: body
+      client.indices.create index: index, body: mappings
     end
 
     def delete_scheme
-      object = new
-      client = object.client
-
-      client.indices.delete index: [index], ignore: 404
+      client.indices.delete index: index
     end
 
     def healthy?
-      object = new
-      client = object.client
-
       status = client.cluster.health["status"]
       status == "green"
     end
@@ -35,6 +18,10 @@ module ActiveSearch
         title: { type: 'text', analyzer: "kuromoji" },
         description: { type: 'text', analyzer: "kuromoji" }
       }
+    end
+
+    def mappings
+      { mappings: { "#{type}" => { properties: properties } } }
     end
 
     def index
