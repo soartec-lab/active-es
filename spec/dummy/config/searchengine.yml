@@ -1,0 +1,13 @@
+default: &default
+  host: localhost
+  port: 9200
+  index: dummy
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
