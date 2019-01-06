@@ -9,7 +9,7 @@ module ActiveSearch
     end
 
     def count
-      client.count["count"]
+      client.count(index: index, type: type)["count"]
     end
 
     # using
