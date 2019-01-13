@@ -22,9 +22,6 @@ module ActiveSearch
     # => []
 
     def match(attributes = nil)
-      object = new(attributes)
-      object.validate!
-
       body = { query: { match: attributes } }
       result = client.search index: index, type: type, body: body
 

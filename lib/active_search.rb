@@ -9,6 +9,5 @@ module ActiveSearch
   autoload :Persistence
   autoload :Quering
   autoload :Scheme
-  autoload :Validates
   autoload :AttributeMethods
 end
