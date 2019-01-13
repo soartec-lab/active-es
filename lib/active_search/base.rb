@@ -5,11 +5,7 @@ module ActiveSearch
     extend Persistence
     include Validates
     include Client
-    
-    attr_reader :attributes
-
-    def initialize(attributes = nil)
-      @attributes = attributes
-    end
+    include AttributeMethods
+    include ActiveModel::Model
   end
 end

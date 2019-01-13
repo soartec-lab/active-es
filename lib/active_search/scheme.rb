@@ -20,6 +20,10 @@ module ActiveSearch
       }
     end
 
+    def propertie_names
+      properties.keys
+    end
+
     def mappings
       { mappings: { "#{type}" => { properties: properties } } }
     end

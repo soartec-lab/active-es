@@ -10,4 +10,5 @@ module ActiveSearch
   autoload :Quering
   autoload :Scheme
   autoload :Validates
+  autoload :AttributeMethods
 end
