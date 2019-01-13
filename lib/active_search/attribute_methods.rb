@@ -5,7 +5,7 @@ module ActiveSearch
 
     included do
       propertie_names.each do |attr|
-        class_eval { attr_accessor attr }
+        class_eval { attr_accessor :id, :score, attr }
       end
     end
   end

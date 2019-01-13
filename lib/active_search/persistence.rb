@@ -13,8 +13,6 @@ module ActiveSearch
       object = new(attributes)
       object.validate!
 
-      client = object.client
-
       result = client.create index: index, type: type, body: attributes
       result["result"] == "created" ? true : raise
     end
