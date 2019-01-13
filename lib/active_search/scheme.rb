@@ -14,10 +14,13 @@ module ActiveSearch
     end
 
     def properties
-      {
-        title: { type: 'text', analyzer: "kuromoji" },
-        description: { type: 'text', analyzer: "kuromoji" }
-      }
+      result = client.indices.get_mapping index: index
+      result.dig(index, "mappings", "contents", "properties").symbolize_keys
+
+      # {
+      #   title: { type: 'text', analyzer: "kuromoji" },
+      #   description: { type: 'text', analyzer: "kuromoji" }
+      # }
     end
 
     def propertie_names
