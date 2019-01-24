@@ -5,6 +5,7 @@ module ActiveSearch
     # => #<Content:0x00007fffc4637fb0 @description="sample description 1", @id="W_KDRmgBeTay2K79iAf7", @title="sample title 1">
     def find(id)
       result = client.get index: index, type: type, id: id
+      
       new(result["_source"].merge({ id: result["_id"] }))
     end
 
@@ -25,9 +26,7 @@ module ActiveSearch
       body = { query: { match: attributes } }
       result = client.search index: index, type: type, body: body
 
-      result.dig("hits", "hits").map do |hit|
-        new(hit["_source"].merge({ id: hit["_id"], score: hit["_score"] }))
-      end
+      result_instance(result)
     end
 
     # using
@@ -52,9 +51,7 @@ module ActiveSearch
       body = { query: { multi_match: { fields: fields, query: keyword, operator: operator} } }
       result = client.search index: index, type: type, body: body
 
-      result.dig("hits", "hits").map do |hit|
-        new(hit["_source"].merge({ id: hit["_id"], score: hit["_score"] }))
-      end
+      result_instance(result)
     end
 
     # using
@@ -65,13 +62,18 @@ module ActiveSearch
     # => []
     def must(attributes = {})
       query = attributes.map { |attr| { match: Hash[*attr] } }
-
       body = { query: { bool: { must: query } } }
       result = client.search index: index, type: type, body: body
 
+      result_instance(result)       
+    end
+
+    private
+
+    def result_instance(result)
       result.dig("hits", "hits").map do |hit|
         new(hit["_source"].merge({ id: hit["_id"], score: hit["_score"] }))
-      end 
+      end
     end
   end
 end
