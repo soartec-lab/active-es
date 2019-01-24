@@ -30,11 +30,11 @@ module ActiveSearch
       end
     end
 
-    # usingd
+    # using
     # ActiveSearch::Base.multi_match(field: ['title', 'description'], match: 'sample 1')
     # => [#<Content:0x00007fffbc2746b0 @description="sample description 1", @id="W_KDRmgBeTay2K79iAf7", @score=0.5753642, @title="sample title 1">]
     #
-    # ActiveSearch::Base.multi_match(fields: ['title', 'description'], keyword: ['sample', '1'])
+    # ActiveSearch::Base.multi_match(fields: ['title', 'description'], match: ['sample', '1'])
     # => [#<Content:0x00007fffbc2746b0 @description="sample description 1", @id="W_KDRmgBeTay2K79iAf7", @score=0.5753642, @title="sample title 1">]
     #
     # ActiveSearch::Base.multi_match(fields: ['title', 'description'], match: ['sample', '1'], operator: 'or')
@@ -59,7 +59,7 @@ module ActiveSearch
 
     # using
     # ActiveSearch::Base.must(title: 'sample', description: '1')
-    # => [#<Content:0x00007fffbc2746b0 @description="sample description 1", @id="W_KDRmgBeTay2K79iAf7", @score=0.5753642, @title="sample title 1">]
+    # => [#<Content:0x00007fffd5f32230 @description="sample description 1", @id="W_KDRmgBeTay2K79iAf7", @score=0.5753642, @title="sample title 1">]
     #
     # ActiveSearch::Base.must(title: '')
     # => []
