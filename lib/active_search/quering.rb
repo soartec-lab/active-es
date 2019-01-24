@@ -56,5 +56,22 @@ module ActiveSearch
         new(hit["_source"].merge({ id: hit["_id"], score: hit["_score"] }))
       end
     end
+
+    # using
+    # ActiveSearch::Base.must(title: 'sample', description: '1')
+    # => [#<Content:0x00007fffbc2746b0 @description="sample description 1", @id="W_KDRmgBeTay2K79iAf7", @score=0.5753642, @title="sample title 1">]
+    #
+    # ActiveSearch::Base.must(title: '')
+    # => []
+    def must(attributes = {})
+      query = attributes.map { |attr| { match: Hash[*attr] } }
+
+      body = { query: { bool: { must: query } } }
+      result = client.search index: index, type: type, body: body
+
+      result.dig("hits", "hits").map do |hit|
+        new(hit["_source"].merge({ id: hit["_id"], score: hit["_score"] }))
+      end 
+    end
   end
 end
