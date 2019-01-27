@@ -68,6 +68,26 @@ module ActiveSearch
       result_instance(result)       
     end
 
+    # using
+    # ActiveSearch::Base.should(title: '1')
+    # => [#<Content:0x00007fffe7e42ea8 @description="sample description 1", @id="W_KDRmgBeTay2K79iAf7", @score=0.2876821, @title="sample title 1">]
+    #
+    # ActiveSearch::Base,.should(title: '2', description: '1')
+    # => [
+    #      #<Content:0x00007fffe7fe0198@description="sample description 2", @id="XPKDRmgBeTay2K79ywfz", @score=0.2876821, @title="sample title 2">,
+    #      #<Content:0x00007fffe7ff7e88@description="sample description 1", @id="W_KDRmgBeTay2K79iAf7", @score=0.2876821, @title="sample title 1">
+    #    ]
+    #
+    # ActiveSearch::Base.should(title: '')
+    # => []
+    def should(attributes = {})
+      query = attributes.map { |attr| { match: Hash[*attr] } }
+      body = { query: { bool: { should: query } } }
+      result = client.search index: index, type: type, body: body
+
+      result_instance(result)       
+    end
+
     private
 
     def result_instance(result)
