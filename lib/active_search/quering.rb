@@ -14,14 +14,20 @@ module ActiveSearch
     end
 
     # using
-    # ActiveSearch::Base.match(title: "title1")
+    # It retrieves data that matches one of the attributes specified by the argument.
+    # The value of Hash specified by attributes is an empty string delimiter and can be specified more than once.
+    # In that case, we will retrieve data whose value matches one of the specified keys.
+    # 
+    # ActiveSearch::Base.match(title: "sample")
     # => [
     #      #<Content:0x00007fffc4637fb0 @description="sample description 1", @id="W_KDRmgBeTay2K79iAf7", @score=0.2876821, @title="sample title 1">,
     #      #<Content:0x00007fffc3f0c7b8 @description="sample description 2", @id="XPKDRmgBeTay2K79ywfz", @score=0.2876821, @title="sample title 2">
     #    ]
+    # ActiveSearch::Base.match(title: '1 0')
+    # => [#<Content:0x00007fffdea9fea8 @description="sample description 1", @id="W_KDRmgBeTay2K79iAf7", @score=0.2876821, @title="sample title 1">]
+    # 
     # ActiveSearch::Base.match(title: 'invalid_title')
     # => []
-
     def match(attributes = nil)
       body = { query: { match: attributes } }
       result = client.search index: index, type: type, body: body
@@ -30,6 +36,9 @@ module ActiveSearch
     end
 
     # using
+    # We perform a search using a match query for multiple fields.
+    # The default operation is "and", but an or search is performed by specifying "or" as the key 'operation' of the argument.
+    #
     # ActiveSearch::Base.multi_match(field: ['title', 'description'], match: 'sample 1')
     # => [#<Content:0x00007fffbc2746b0 @description="sample description 1", @id="W_KDRmgBeTay2K79iAf7", @score=0.5753642, @title="sample title 1">]
     #
@@ -55,6 +64,8 @@ module ActiveSearch
     end
 
     # using
+    # Get data that matches all the attributes specified by arguments.
+    #
     # ActiveSearch::Base.must(title: 'sample', description: '1')
     # => [#<Content:0x00007fffd5f32230 @description="sample description 1", @id="W_KDRmgBeTay2K79iAf7", @score=0.5753642, @title="sample title 1">]
     #
@@ -69,6 +80,8 @@ module ActiveSearch
     end
 
     # using
+    # It retrieves data that matches one of the attributes specified by the argument.
+    #
     # ActiveSearch::Base.should(title: '1')
     # => [#<Content:0x00007fffe7e42ea8 @description="sample description 1", @id="W_KDRmgBeTay2K79iAf7", @score=0.2876821, @title="sample title 1">]
     #
