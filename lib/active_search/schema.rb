@@ -38,7 +38,14 @@ module ActiveSearch
     end
 
     def properties
+      return @@properties.merge!(defined_propeties) if @@properties.empty?
+      
       @@properties
+    end
+
+    def defined_propeties
+      result = client.indices.get_mapping index: index
+      result.dig(index, "mappings", "contents", "properties").symbolize_keys  
     end
 
     def propertie_names
