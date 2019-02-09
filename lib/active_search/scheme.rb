@@ -1,5 +1,7 @@
 module ActiveSearch
   module Scheme
+    @@properties = {}
+
     def create_scheme
       client.indices.create index: index, body: mappings
     end
@@ -13,14 +15,12 @@ module ActiveSearch
       status == "green"
     end
 
-    def properties
-      result = client.indices.get_mapping index: index
-      result.dig(index, "mappings", "contents", "properties").symbolize_keys
+    def property(field, **optins)
+      @@properties[field] = options
+    end
 
-      # {
-      #   title: { type: 'text', analyzer: "kuromoji" },
-      #   description: { type: 'text', analyzer: "kuromoji" }
-      # }
+    def properties
+      @@properties
     end
 
     def propertie_names
