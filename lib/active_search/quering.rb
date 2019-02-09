@@ -13,6 +13,13 @@ module ActiveSearch
       client.count(index: index, type: type)["count"]
     end
 
+    def all
+      body = { query: { match_all: {} } }
+      result = client.search index: index, type: type, body: body
+
+      result_instance(result)
+    end
+
     # using
     # It retrieves data that matches one of the attributes specified by the argument.
     # The value of Hash specified by attributes is an empty string delimiter and can be specified more than once.
