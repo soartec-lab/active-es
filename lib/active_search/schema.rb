@@ -1,14 +1,5 @@
 module ActiveSearch
   module Schema
-    FieldDetaTypes = %w(
-      text keyword
-      long integer short byte
-      double float half_float scaled_float
-      date
-      boolean
-      binary
-      integer_range float_range long_range double_range date_range
-    )
     @@properties = {}
 
     def create_schema
@@ -29,12 +20,16 @@ module ActiveSearch
       status == "green"
     end
 
-    def property(field, **options)
-      if options.values.all? { |key| FieldDetaTypes.exclude?(key) }
-        raise ArgumentError('invalid field deta types')
-      end
+    def index
+      ActiveSearch::Configurations.new.index
+    end
 
-      @@properties[field] = options
+    def type
+      name.tableize
+    end
+
+    def mappings
+      { mappings: { "#{type}" => { properties: properties } } }
     end
 
     def properties
@@ -45,23 +40,29 @@ module ActiveSearch
 
     def defined_propeties
       result = client.indices.get_mapping index: index
-      result.dig(index, "mappings", "contents", "properties").symbolize_keys  
+      result.dig(index, "mappings", type, "properties").symbolize_keys  
     end
 
-    def propertie_names
+    def field_names
       properties.keys
     end
 
-    def mappings
-      { mappings: { "#{type}" => { properties: properties } } }
-    end
+    FieldDetaTypes = %w(
+      text keyword
+      long integer short byte
+      double float half_float scaled_float
+      date
+      boolean
+      binary
+      integer_range float_range long_range double_range date_range
+    )
 
-    def index
-      ActiveSearch::Configurations.new.index
-    end
+    def property(field, **options)
+      if options.values.all? { |key| FieldDetaTypes.exclude?(key) }
+        raise ArgumentError('invalid field deta types')
+      end
 
-    def type
-      name.tableize
+      properties[field] = options
     end
   end
 end
