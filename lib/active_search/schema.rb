@@ -19,6 +19,11 @@ module ActiveSearch
       client.indices.delete index: index
     end
 
+    def reset_schema
+      delete_schema
+      create_schema
+    end
+
     def healthy?
       status = client.cluster.health["status"]
       status == "green"
