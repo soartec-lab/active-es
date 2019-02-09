@@ -1,6 +1,6 @@
 module ActiveSearch
   class Base
-    extend Scheme
+    extend Schema
     extend Quering
     extend Persistence
     include Client

@@ -8,6 +8,6 @@ module ActiveSearch
   autoload :Configurations
   autoload :Persistence
   autoload :Quering
-  autoload :Scheme
+  autoload :Schema
   autoload :AttributeMethods
 end
