@@ -33,18 +33,7 @@ module ActiveSearch
     end
 
     def properties
-      return @@properties.merge!(defined_propeties) if @@properties.empty?
-      
       @@properties
-    end
-
-    def defined_propeties
-      result = client.indices.get_mapping index: index
-      result.dig(index, "mappings", type, "properties").symbolize_keys  
-    end
-
-    def field_names
-      properties.keys
     end
 
     FieldDetaTypes = %w(
@@ -63,6 +52,7 @@ module ActiveSearch
       end
 
       properties[field] = options
+      attr_accessor field
     end
   end
 end
