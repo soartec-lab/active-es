@@ -24,7 +24,8 @@ module ActiveSearch
     # It retrieves data that matches one of the attributes specified by the argument.
     # The value of Hash specified by attributes is an empty string delimiter and can be specified more than once.
     # In that case, we will retrieve data whose value matches one of the specified keys.
-    # 
+    # Unlike the term method, Analyze uses it for the field that Analyze needs to do.
+    #
     # ActiveSearch::Base.match(title: "sample")
     # => [
     #      #<Content:0x00007fffc4637fb0 @description="sample description 1", @id="W_KDRmgBeTay2K79iAf7", @score=0.2876821, @title="sample title 1">,
@@ -37,6 +38,21 @@ module ActiveSearch
     # => []
     def match(attributes = nil)
       body = { query: { match: attributes } }
+      result = client.search index: index, type: type, body: body
+
+      result_instance(result)
+    end
+
+
+    # using
+    # In the argument, pass field to key and Hash with numerical value to value.
+    # Unlike the match method, since Analyze is not performed,
+    # high-speed searching is possible for fields where Analyze is unnecessary.
+    # 
+    # ActiveSearch::Base.term(number: 3)
+    # => [#<Content:0x00007fffe60264b0 @description="sample description 1", @id="Hhp01mgBhOPWXkxaeleN", @number=3, @score=1.0, @title="sample title 1">]
+    def term(attributes = nil)
+      body = { query: { term: attributes } }
       result = client.search index: index, type: type, body: body
 
       result_instance(result)
@@ -130,19 +146,6 @@ module ActiveSearch
       result = client.search index: index, type: type, body: body
 
       result_instance(result)       
-    end
-
-    # using
-    # Use the term method when searching for numeric values.
-    # In the argument, pass field to key and Hash with numerical value to value.
-    #
-    # ActiveSearch::Base.term(number: 3)
-    # => [#<Content:0x00007fffe60264b0 @description="sample description 1", @id="Hhp01mgBhOPWXkxaeleN", @number=3, @score=1.0, @title="sample title 1">]
-    def term(attributes = nil)
-      body = { query: { term: attributes } }
-      result = client.search index: index, type: type, body: body
-
-      result_instance(result)
     end
 
     private
