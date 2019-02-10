@@ -1,6 +1,6 @@
 module ActiveSearch
   module Schema
-    @@properties = {}
+    mattr_accessor :properties, default: {}
 
     def create_schema
       client.indices.create index: index, body: mappings
@@ -30,10 +30,6 @@ module ActiveSearch
 
     def mappings
       { mappings: { "#{type}" => { properties: properties } } }
-    end
-
-    def properties
-      @@properties
     end
 
     FieldDetaTypes = %w(
