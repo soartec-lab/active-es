@@ -61,6 +61,7 @@ module ActiveSearch
     # using
     # We perform a search using a match query for multiple fields.
     # The default operation is "and", but an or search is performed by specifying "or" as the key 'operation' of the argument.
+    # Unlike the terms method, Analyze uses it for the field that Analyze needs to do.
     #
     # ActiveSearch::Base.multi_match(field: ['title', 'description'], match: 'sample 1')
     # => [#<Content:0x00007fffbc2746b0 @description="sample description 1", @id="W_KDRmgBeTay2K79iAf7", @score=0.5753642, @title="sample title 1">]
@@ -81,6 +82,30 @@ module ActiveSearch
 
       keyword = Array(match).join(' ')
       body = { query: { multi_match: { fields: fields, query: keyword, operator: operator} } }
+      result = client.search index: index, type: type, body: body
+
+      result_instance(result)
+    end
+
+    # using
+    # We perform a search using a match query for multiple fields.
+    # The default operation is "and", but an or search is performed by specifying "or" as the key 'operation' of the argument.
+    # Unlike the multi_match method, since Analyze is not performed,
+    # high-speed searching is possible for fields where Analyze is unnecessary.
+    #
+    # ActiveSearch::Base.terms(number: 1)
+    # => [#<Content:0x00007fffbc7dfeb0 @description="description1", @id="IRrI1mgBhOPWXkxafVdk", @number=1, @rank=1, @score=1.0, @title="title1">]
+    # 
+    # ActiveSearch::Base.terms(number: [1, 2])
+    # => [
+    #      #<Content:0x00007fffbbe29038 @description="description2", @id="IhrI1mgBhOPWXkxafVfv", @number=2, @rank=2, @score=1.0, @title="title2">,
+    #      #<Content:0x00007fffbbe33100 @description="description1", @id="IRrI1mgBhOPWXkxafVdk", @number=1, @rank=1, @score=1.0, @title="title1">
+    #    ]
+    def terms(attributes = nil)
+      field = attributes.keys.first
+      query = { field => attributes.values.flatten }
+
+      body = { query: { terms: query } }
       result = client.search index: index, type: type, body: body
 
       result_instance(result)
