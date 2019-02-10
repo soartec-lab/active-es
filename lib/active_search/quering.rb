@@ -132,6 +132,19 @@ module ActiveSearch
       result_instance(result)       
     end
 
+    # using
+    # Use the term method when searching for numeric values.
+    # In the argument, pass field to key and Hash with numerical value to value.
+    #
+    # ActiveSearch::Base.term(number: 3)
+    # => [#<Content:0x00007fffe60264b0 @description="sample description 1", @id="Hhp01mgBhOPWXkxaeleN", @number=3, @score=1.0, @title="sample title 1">]
+    def term(attributes = nil)
+      body = { query: { term: attributes } }
+      result = client.search index: index, type: type, body: body
+
+      result_instance(result)
+    end
+
     private
 
     def result_instance(result)
