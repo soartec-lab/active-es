@@ -22,7 +22,39 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### STEP1
+#### Setting Config
+Create config/searchengine.yml
+
+See: spec/dummy/config/searchengine.yml
+
+### STEP2
+#### Inherit `ActiveEs::Base`
+
+```
+class Content < ActiveEs::Base
+end
+```
+
+### STEP3
+#### Define the property of model. 
+
+format is `property :field_name, type: 'detatype', options... `
+To check the specifiable detatype, execute the following command on rails console.
+
+```
+$ bundle exec rails console
+$ ActiveEs::Schema::Definition::FieldDetaTypes
+```
+
+FYI: spec/dummy/app/models/content.ru
+class Content < ActiveEs::Base
+  property :title, type: 'text', analyzer: 'kuromoji'
+  property :description, type: 'text', analyzer: "kuromoji"
+  property :number, type: 'integer'
+  property :rank, type: 'integer'
+end
+```
 
 ## Development
 
