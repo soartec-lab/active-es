@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "active_search"
+require "active_es"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

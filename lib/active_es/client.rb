@@ -1,6 +1,6 @@
 require 'elasticsearch'
 
-module ActiveSearch
+module ActiveEs
   module Client
     extend ActiveSupport::Concern
 
@@ -8,7 +8,7 @@ module ActiveSearch
       cattr_accessor :client
 
       def self.connect
-        configrations = ActiveSearch::Configurations.new
+        configrations = ActiveEs::Configurations.new
         @@client = Elasticsearch::Client.new url: configrations.connection_url  
       end
       self.connect

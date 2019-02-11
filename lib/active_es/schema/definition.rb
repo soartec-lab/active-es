@@ -1,4 +1,4 @@
-module ActiveSearch
+module ActiveEs
   module Schema
     module Definition
       extend ActiveSupport::Concern

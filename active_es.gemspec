@@ -1,17 +1,17 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "active_search/version"
+require "active_es/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "active_search"
-  spec.version       = ActiveSearch::VERSION
+  spec.name          = "active_es"
+  spec.version       = ActiveEs::VERSION
   spec.authors       = ["soartec-lab"]
   spec.email         = ["info@soartec-lab.work"]
 
   spec.summary       = %q{gem for abstract use of search engine.}
   spec.description   = %q{I will write this section when I finish creating this gem.}
-  spec.homepage      = "https://github.com/soartec-lab/active_search"
+  spec.homepage      = "https://github.com/soartec-lab/active_es"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'

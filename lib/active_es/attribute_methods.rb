@@ -1,4 +1,4 @@
-module ActiveSearch
+module ActiveEs
   # = Active Record Attribute Methods
   module AttributeMethods
     extend ActiveSupport::Concern

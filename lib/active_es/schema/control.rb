@@ -1,4 +1,4 @@
-module ActiveSearch
+module ActiveEs
   module Schema
     module Control
       extend ActiveSupport::Concern
