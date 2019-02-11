@@ -59,6 +59,7 @@ end
 
 ## dummy app
 
+```
 $ bundle exec rails runner spec/dummy/db/seeds.rb
 $ bundle exec rails console
 $ => Content.all
@@ -68,7 +69,7 @@ $ => [#<Content:0x00007fffc5e958a0 @description="description2", @id="IhrI1mgBhOP
  #<Content:0x00007fffc5eab3f8 @description="descripnumion20", @id="JRrI1mgBhOPWXkxaf1d1", @number=20, @rank=20, @score=1.0, @title="title20">,
  #<Content:0x00007fffc5eaa368 @description="description0", @id="IBrI1mgBhOPWXkxafFfP", @number=0, @rank=0, @score=1.0, @title="title0">,
  #<Content:0x00007fffc5ebb618 @description="descripnumion0", @id="IxrI1mgBhOPWXkxafld1", @number=0, @rank=0, @score=1.0, @title="title0">]
-
+```
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
