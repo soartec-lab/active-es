@@ -9,7 +9,7 @@ TODO: Delete this and the text above, and describe your gem
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'active_es'
+gem 'active-es'
 ```
 
 And then execute:
@@ -18,7 +18,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install active_es
+    $ gem install active-es
 
 ## Usage
 
@@ -44,10 +44,11 @@ To check the specifiable detatype, execute the following command on rails consol
 
 ```
 $ bundle exec rails console
-$ ActiveEs::Schema::Definition::FieldDetaTypes
+$ > ActiveEs::Schema::Definition::FieldDetaTypes
 ```
 
-FYI: spec/dummy/app/models/content.ru
+FYI: spec/dummy/app/models/content.rb
+```
 class Content < ActiveEs::Base
   property :title, type: 'text', analyzer: 'kuromoji'
   property :description, type: 'text', analyzer: "kuromoji"
@@ -56,11 +57,26 @@ class Content < ActiveEs::Base
 end
 ```
 
+## dummy app
+
+$ bundle exec rails runner spec/dummy/db/seeds.rb
+$ bundle exec rails console
+$ => Content.all
+$ => [#<Content:0x00007fffc5e958a0 @description="description2", @id="IhrI1mgBhOPWXkxafVfv", @number=2, @rank=2, @score=1.0, @title="title2">,
+ #<Content:0x00007fffc5e94f90 @description="descripnumion10", @id="JBrI1mgBhOPWXkxaflfy", @number=10, @rank=10, @score=1.0, @title="title10">,
+ #<Content:0x00007fffc5eab948 @description="description1", @id="IRrI1mgBhOPWXkxafVdk", @number=1, @rank=1, @score=1.0, @title="title1">,
+ #<Content:0x00007fffc5eab3f8 @description="descripnumion20", @id="JRrI1mgBhOPWXkxaf1d1", @number=20, @rank=20, @score=1.0, @title="title20">,
+ #<Content:0x00007fffc5eaa368 @description="description0", @id="IBrI1mgBhOPWXkxafFfP", @number=0, @rank=0, @score=1.0, @title="title0">,
+ #<Content:0x00007fffc5ebb618 @description="descripnumion0", @id="IxrI1mgBhOPWXkxafld1", @number=0, @rank=0, @score=1.0, @title="title0">]
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+
+# FYI
+https://github.com/elastic/elasticsearch-ruby
 
 ## Contributing
 
