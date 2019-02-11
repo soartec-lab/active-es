@@ -1,10 +1,10 @@
-module ActiveSearch
+module ActiveEs
   module Schema
     module Describe
       extend ActiveSupport::Concern
 
       def index
-        ActiveSearch::Configurations.new.index
+        ActiveEs::Configurations.new.index
       end
 
       def type

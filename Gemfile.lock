@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    active_search (0.1.0)
+    active_es (0.1.0)
       elasticsearch (~> 6.0)
       rails (>= 4.0)
 
@@ -170,7 +170,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_search!
+  active_es!
   bundler (~> 1.17)
   byebug
   listen (>= 3.0.5, < 3.2)

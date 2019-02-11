@@ -1,6 +1,6 @@
-require "active_search/version"
+require "active_es/version"
 
-module ActiveSearch
+module ActiveEs
   extend ActiveSupport::Autoload
 
   autoload :Base

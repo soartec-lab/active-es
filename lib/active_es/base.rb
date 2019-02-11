@@ -1,4 +1,4 @@
-module ActiveSearch
+module ActiveEs
   class Base
     extend Schema
     extend Quering

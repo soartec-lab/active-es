@@ -1,4 +1,4 @@
-module ActiveSearch
+module ActiveEs
   class Configurations
     attr_reader :connection_url, :index
 
