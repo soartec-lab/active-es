@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    active-es (0.1.0)
+    active-es (0.1.1)
       elasticsearch (~> 6.0)
       rails (>= 4.0)
 
