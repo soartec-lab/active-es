@@ -3,8 +3,6 @@ module ActiveEs
     module Definition
       extend ActiveSupport::Concern
 
-      mattr_accessor :properties, default: {}
-
       FieldDetaTypes = %w(
         text keyword
         long integer short byte
@@ -18,6 +16,10 @@ module ActiveEs
       def property(field, **options)
         if options.values.all? { |key| FieldDetaTypes.exclude?(key) }
           raise ArgumentError('invalid field deta types')
+        end
+
+        unless defined? properties
+          class_attribute :properties, default: {}
         end
 
         properties[field] = options
